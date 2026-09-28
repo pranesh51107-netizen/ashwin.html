@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKart - Online Shopping</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f3f6;
+            color: #212121;
+        }
+
+        /* HEADER */
+        header {
+            background: #2874f0;
+            color: white;
+            padding: 10px 5%;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #ffe500;
+            font-size: 13px;
+            display: block;
+            font-style: italic;
+        }
+
+        .search {
+            flex: 1;
+            display: flex;
+            max-width: 600px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .search button {
+            width: 50px;
+            border: none;
+            background: white;
+            color: #2874f0;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .login {
+            background: white;
+            color: #2874f0;
+            padding: 10px 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart {
+            font-weight: bold;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        /* CATEGORIES */
+        .categories {
+            background: white;
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            padding: 18px 10px;
+            overflow-x: auto;
+        }
+
+        .category {
+            text-align: center;
+            min-width: 80px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .category .icon {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        /* BANNER */
+        .banner {
+            margin: 12px auto;
+            width: 95%;
+            height: 250px;
+            background: linear-gradient(90deg, #2874f0, #6ba4ff);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        .banner h1 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .banner button {
+            padding: 12px 25px;
+            border: none;
+            background: #ff9f00;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .banner-icon {
+            font-size: 100px;
+        }
+
+        /* SECTION */
+        .section {
+            width: 95%;
+            margin: 15px auto;
+            background: white;
+            padding: 20px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 22px;
+        }
+
+        .view {
+            background: #2874f0;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* PRODUCTS */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .product:hover {
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            background: #fafafa;
+            margin-bottom: 12px;
+        }
+
+        .product h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-left: 5px;
+            font-size: 14px;
+        }
+
+        .discount {
+            color: green;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #172337;
+            color: white;
+            margin-top: 30px;
+            padding: 40px 7%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: #878787;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #555;
+            margin-top: 30px;
+            padding-top: 20px;
+            color: #aaa;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .products {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .search {
+                order: 5;
+                max-width: 100%;
+                flex-basis: 100%;
+            }
+
+            .banner h1 {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories {
+                justify-content: flex-start;
+            }
+
+            .banner {
+                height: 200px;
+            }
+
+            .banner-icon {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            ShopKart
+            <span>Explore Plus ✦</span>
+        </div>
+
+        <div class="search">
+            <input type="text" id="searchInput"
+                   placeholder="Search for products, brands and more">
+            <button onclick="searchProducts()">🔍</button>
+        </div>
+
+        <button class="login">Login</button>
+
+        <div class="cart">
+            🛒 Cart (<span id="cartCount">0</span>)
+        </div>
+    </header>
+
+    <!-- CATEGORIES -->
+    <div class="categories">
+
+        <div class="category">
+            <div class="icon">📱</div>
+            Mobiles
+        </div>
+
+        <div class="category">
+            <div class="icon">💻</div>
+            Electronics
+        </div>
+
+        <div class="category">
+            <div class="icon">👕</div>
+            Fashion
+        </div>
+
+        <div class="category">
+            <div class="icon">🏠</div>
+            Home
+        </div>
+
+        <div class="category">
+            <div class="icon">📺</div>
+            Appliances
+        </div>
+
+        <div class="category">
+            <div class="icon">🛒</div>
+            Grocery
+        </div>
+
+        <div class="category">
+            <div class="icon">✈️</div>
+            Travel
+        </div>
+
+    </div>
+
+    <!-- BANNER -->
+    <div class="banner">
+        <div>
+            <h1>Big Shopping Days</h1>
+            <p>Up to 70% OFF on selected products</p>
+            <button>SHOP NOW</button>
+        </div>
+
+        <div class="banner-icon">
+            🛍️
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="section">
+
+        <div class="section-title">
+            <h2>Top Deals</h2>
+            <button class="view">VIEW ALL</button>
+        </div>
+
+        <div class="products" id="productContainer">
+
+            <div class="product" data-name="Smartphone">
+                <div class="product-image">📱</div>
+                <h3>Smartphone Pro</h3>
+                <div class="price">
+                    ₹19,999
+                    <span class="old-price">₹25,999</span>
+                </div>
+                <div class="discount">23% OFF</div>
+                <button onclick="addToCart()" style="margin-top:10px;padding:8px;">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-name="Laptop">
+                <div class="product-image">💻</div>
+                <h3>Power Laptop</h3>
+                <div class="price">
+                    ₹49,999
+                    <span class="old-price">₹59,999</span>
+                </div>
+                <div class="discount">16% OFF</div>
+                <button onclick="addToCart()" style="margin-top:10px;padding:8px;">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-name="Headphones">
+                <div class="product-image">🎧</div>
+                <h3>Wireless Headphones</h3>
+                <div class="price">
+                    ₹1,999
+                    <span class="old-price">₹3,499</span>
+                </div>
+                <div class="discount">43% OFF</div>
+                <button onclick="addToCart()" style="margin-top:10px;padding:8px;">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-name="Smart Watch">
+                <div class="product-image">⌚</div>
+                <h3>Smart Watch</h3>
+                <div class="price">
+                    ₹2,499
+                    <span class="old-price">₹4,999</span>
+                </div>
+                <div class="discount">50% OFF</div>
+                <button onclick="addToCart()" style="margin-top:10px;padding:8px;">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-name="Camera">
+                <div class="product-image">📷</div>
+                <h3>Digital Camera</h3>
+                <div class="price">
+                    ₹29,999
+                    <span class="old-price">₹39,999</span>
+                </div>
+                <div class="discount">25% OFF</div>
+                <button onclick="addToCart()" style="margin-top:10px;padding:8px;">
+                    Add to Cart
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ANOTHER SECTION -->
+    <div class="section">
+
+        <div class="section-title">
+            <h2>Home & Kitchen</h2>
+            <button class="view">VIEW ALL</button>
+        </div>
+
+        <div class="products">
+
+            <div class="product">
+                <div class="product-image">🍳</div>
+                <h3>Non-Stick Cookware</h3>
+                <div class="price">₹1,499</div>
+                <div class="discount">30% OFF</div>
+            </div>
+
+            <div class="product">
+                <div class="product-image">🥘</div>
+                <h3>Pressure Cooker</h3>
+                <div class="price">₹1,999</div>
+                <div class="discount">20% OFF</div>
+            </div>
+
+            <div class="product">
+                <div class="product-image">🫖</div>
+                <h3>Steel Kitchen Set</h3>
+                <div class="price">₹999</div>
+                <div class="discount">35% OFF</div>
+            </div>
+
+            <div class="product">
+                <div class="product-image">🪑</div>
+                <h3>Modern Chair</h3>
+                <div class="price">₹2,999</div>
+                <div class="discount">15% OFF</div>
+            </div>
+
+            <div class="product">
+                <div class="product-image">🧹</div>
+                <h3>Cleaning Essentials</h3>
+                <div class="price">₹499</div>
+                <div class="discount">40% OFF</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+                <h3>ABOUT</h3>
+                <p>Contact Us</p>
+                <p>About Us</p>
+                <p>Careers</p>
+                <p>Press</p>
+            </div>
+
+            <div>
+                <h3>HELP</h3>
+                <p>Payments</p>
+                <p>Shipping</p>
+                <p>Cancellation</p>
+                <p>Returns</p>
+            </div>
+
+            <div>
+                <h3>CONSUMER POLICY</h3>
+                <p>Terms of Use</p>
+                <p>Privacy</p>
+                <p>Security</p>
+                <p>Sitemap</p>
+            </div>
+
+            <div>
+                <h3>FOLLOW US</h3>
+                <p>Facebook</p>
+                <p>Instagram</p>
+                <p>YouTube</p>
+                <p>Twitter</p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 ShopKart. All rights reserved.
+        </div>
+
+    </footer>
+
+    <script>
+
+        let cartCount = 0;
+
+        function addToCart() {
+            cartCount++;
+            document.getElementById("cartCount").innerText = cartCount;
+            alert("Product added to cart!");
+        }
+
+        function searchProducts() {
+
+            const search =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            const products =
+                document.querySelectorAll(".product");
+
+            products.forEach(product => {
+
+                const name =
+                    product.dataset.name ||
+                    product.querySelector("h3")?.innerText.toLowerCase();
+
+                if (!name || name.toLowerCase().includes(search)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>
